@@ -127,7 +127,11 @@ export const ProductList: React.FC = () => {
                             </button>
                             <button
                                 className="btn btn-sm btn-outline-danger"
-                                onClick={() => handleDelete(product.id!)}
+                                onClick={() => {
+                                    if (confirm("Are you sure you want to delete this product?")) {
+                                        handleDelete(product.id!);
+                                    }
+                                }}
                             >
                                 Delete
                             </button>
