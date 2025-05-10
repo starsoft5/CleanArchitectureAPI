@@ -9,5 +9,11 @@ namespace Core.Interfaces {
         Task AddProductAsync(Product product);
         Task UpdateProductAsync(Product product);
         Task DeleteProductAsync(int id);
+
+        // Graphql
+        IEnumerable<Product> GetAll();
+        void Add(Product product);
+        void Save();
+
     }
 }

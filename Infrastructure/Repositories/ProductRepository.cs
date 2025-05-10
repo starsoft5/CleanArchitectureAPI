@@ -3,6 +3,7 @@ using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories {
@@ -37,6 +38,19 @@ namespace Infrastructure.Repositories {
                     _context.Products.Remove(product);
                     await _context.SaveChangesAsync();
                 }
+            }
+
+            // Graphql
+            public IEnumerable<Product> GetAll() => _context.Products.ToList();
+
+            public void Add(Product product)
+            {
+                _context.Products.Add(product);
+            }
+
+            public void Save()
+            {
+                _context.SaveChanges();
             }
         }
     }

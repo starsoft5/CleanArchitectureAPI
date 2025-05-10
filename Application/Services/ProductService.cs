@@ -37,4 +37,11 @@ public class ProductService : IProductService
     {
         await _productRepository.DeleteProductAsync(id);
     }
+
+    // Graphql
+    public void Add(Product product)
+    {
+        _productRepository.Add(product);
+        _productRepository.Save();
+    }
 }

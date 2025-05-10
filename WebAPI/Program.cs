@@ -3,10 +3,10 @@ using Core.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+using GraphQLApi.GraphQL;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 1. Define CORS policy
 var policyName = "MyCorsPolicy";
 
 builder.Services.AddCors(options =>
@@ -20,22 +20,33 @@ builder.Services.AddCors(options =>
         });
 });
 
-// Add services to the container.
 builder.Services.AddControllers();
+
 builder.Services.AddDbContext<SQLiteDbContext>(options =>
-options.UseSqlite("Data Source=app.db"));
+    options.UseSqlite("Data Source=app.db"));
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
 
+// Add GraphQL
+builder.Services
+    .AddGraphQLServer()
+    .AddQueryType<Query>()
+    .AddMutationType<Mutation>();
+
+builder.Services.AddScoped<Query>();
+builder.Services.AddScoped<Mutation>();
+
+
 var app = builder.Build();
 
-// 2. Use CORS policy
 app.UseCors(policyName);
-
-// Configure the HTTP request pipeline.
+app.UseRouting();
 app.UseAuthorization();
-
-app.MapControllers();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+    endpoints.MapGraphQL(); // Available at /graphql
+});
 
 app.Run();
