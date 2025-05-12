@@ -1,5 +1,6 @@
 using Core.Entities;
 using Core.Interfaces;
+using HotChocolate;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -42,6 +43,12 @@ namespace Infrastructure.Repositories {
 
             // Graphql
             public IEnumerable<Product> GetAll() => _context.Products.ToList();
+
+        
+            public Product ProductById(int id)
+            {
+                return _context.Products.FirstOrDefault(p => p.Id == id);
+            }
 
             public void Add(Product product)
             {

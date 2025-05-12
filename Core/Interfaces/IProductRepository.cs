@@ -12,6 +12,7 @@ namespace Core.Interfaces {
 
         // Graphql
         IEnumerable<Product> GetAll();
+        Product ProductById(int id);
         void Add(Product product);
         void Save();
 

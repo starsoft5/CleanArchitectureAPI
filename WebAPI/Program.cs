@@ -39,14 +39,10 @@ builder.Services.AddScoped<Mutation>();
 
 
 var app = builder.Build();
-
+app.MapControllers();
+app.MapGraphQL(); // Maps the GraphQL endpoint (default: /graphql)
 app.UseCors(policyName);
 app.UseRouting();
 app.UseAuthorization();
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-    endpoints.MapGraphQL(); // Available at /graphql
-});
-
+ 
 app.Run();
