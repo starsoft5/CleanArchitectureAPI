@@ -1,13 +1,8 @@
-// src/App.tsx
 import React from 'react';
-import ProductList from './components/ProductList';
+import LoginForm from './LoginForm';
 
 const App: React.FC = () => {
-    return (
-        <div>
-            <ProductList />
-        </div>
-    );
+    return <LoginForm />;
 };
 
 export default App;
